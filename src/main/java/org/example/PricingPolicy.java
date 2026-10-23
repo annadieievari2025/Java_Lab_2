@@ -1,4 +1,7 @@
 package org.example;
 
-public class PricingPolicy {
+import java.math.BigDecimal;
+
+public interface PricingPolicy {
+    BigDecimal calculateCommercialPrice(RepairOrder order);
 }
