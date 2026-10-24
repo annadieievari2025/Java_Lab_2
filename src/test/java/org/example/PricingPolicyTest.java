@@ -11,12 +11,11 @@ class PricingPolicyTest {
 
     @ParameterizedTest(name = "Базова: {0}, Очікувана комерційна: {1}")
     @CsvSource({
-            "300.00, 500.00",      // Менше мінімальної ціни (500)
-            "5000.00, 5000.00",    // Звичайна ціна без знижки
-            "12000.00, 10800.00"   // Більше 10000 -> знижка 10%
+            "300.00, 500.00",
+            "5000.00, 5000.00",
+            "12000.00, 10800.00"
     })
     void testCalculateCommercialPrice(String baseCostStr, String expectedCostStr) {
-        // Given
         RepairOrder mockOrder = new RepairOrder(new Car("VIN111")) {
             @Override
             public BigDecimal calculateBaseCost() {
@@ -24,10 +23,9 @@ class PricingPolicyTest {
             }
         };
 
-        // When
         BigDecimal actualCost = policy.calculateCommercialPrice(mockOrder);
 
-        // Then
-        assertEquals(new BigDecimal(expectedCostStr), actualCost);
+        BigDecimal expectedCost = new BigDecimal(expectedCostStr);
+        assertEquals(0, expectedCost.compareTo(actualCost)); // 0 означає, що значення рівні
     }
 }
